@@ -1,8 +1,9 @@
-import { View, Text, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, Animated } from 'react-native'
+import { View, Text, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, Animated, Alert } from 'react-native'
 import React, { useState } from 'react'
 import {Picker} from '@react-native-picker/picker';
+import { FromProps } from '../../interfaces';
 
-export default function FormWeather() {
+export default function FormWeather({search, handleSearch, setSearch}:FromProps) {
     const [btnAnimation] = useState(new Animated.Value(1))
 
     const animationEntry = () => {
@@ -20,9 +21,23 @@ export default function FormWeather() {
             useNativeDriver:false
         }).start()
     }
-    
+
     const animationStyle = {
         transform:[{scale: btnAnimation}]
+    }
+
+    const {city, country} = search
+
+    const handleSubmit = () => {
+        if (Object.values(search).includes('')) {
+            Alert.alert(
+                'Error',
+                'Agrega una ciudad y pais para la busqueda'
+                )
+                return
+        }
+
+        handleSearch(search)
     }
 
     return (
@@ -30,7 +45,7 @@ export default function FormWeather() {
             <View style={styles.container}>
 
                 <View style={styles.form}>
-                    <TextInput style={styles.input}
+                    <TextInput style={styles.input} value={city} onChangeText={(city) => setSearch({...search, city})}
                     placeholder='Ciudad' placeholderTextColor={'#666'}
                     />
                 </View>
@@ -38,6 +53,8 @@ export default function FormWeather() {
                 <View>
 
                     <Picker style={{backgroundColor:'#fff'} }
+                    selectedValue={country}
+                    onValueChange={(country) => setSearch({...search, country})}
                     >
 
                         <Picker.Item label='-- Seleccione un Pais --' value=''/>
@@ -56,6 +73,7 @@ export default function FormWeather() {
                 <TouchableWithoutFeedback
                 onPressIn={() => animationEntry()}
                 onPressOut={() => animationExit()}
+                onPress={() => handleSubmit()}
                 >
                     <Animated.View style={[styles.btn, animationStyle]}>
 
