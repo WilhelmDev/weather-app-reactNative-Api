@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import FormWeather from './src/components/FormWeather';
+import { useState } from 'react';
 
 export default function App() {
 

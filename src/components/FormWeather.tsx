@@ -1,8 +1,30 @@
-import { View, Text, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, Animated } from 'react-native'
+import React, { useState } from 'react'
 import {Picker} from '@react-native-picker/picker';
 
 export default function FormWeather() {
+    const [btnAnimation] = useState(new Animated.Value(1))
+
+    const animationEntry = () => {
+        Animated.spring( btnAnimation,{
+            toValue: 0.75,
+            useNativeDriver:false
+        }).start()
+    }
+
+    const animationExit = () => {
+        Animated.spring( btnAnimation,{
+            toValue: 1,
+            friction: 4,
+            tension: 40,
+            useNativeDriver:false
+        }).start()
+    }
+    
+    const animationStyle = {
+        transform:[{scale: btnAnimation}]
+    }
+
     return (
         <>
             <View style={styles.container}>
@@ -31,14 +53,17 @@ export default function FormWeather() {
 
                 </View>
 
-                <TouchableWithoutFeedback>
-                    <View style={styles.btn}>
+                <TouchableWithoutFeedback
+                onPressIn={() => animationEntry()}
+                onPressOut={() => animationExit()}
+                >
+                    <Animated.View style={[styles.btn, animationStyle]}>
 
                         <Text style={styles.btnText}>
                             Buscar Clima 
                         </Text>
 
-                    </View>
+                    </Animated.View>
                 </TouchableWithoutFeedback>
 
             </View>
@@ -64,7 +89,8 @@ const styles= StyleSheet.create({
     btn:{
         marginTop:50,
         backgroundColor:'#000',
-        padding:10,
+        paddingHorizontal:10,
+        paddingVertical:12,
         justifyContent:'center'
     },
     btnText:{
@@ -73,6 +99,6 @@ const styles= StyleSheet.create({
         textTransform:'uppercase',
         textAlign:'center',
         fontSize:16,
-        
+
     },
 })
