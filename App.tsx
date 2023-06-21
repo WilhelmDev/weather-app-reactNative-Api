@@ -1,16 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import FormWeather from './src/components/FormWeather';
 
 export default function App() {
+
+  const hideKeyboard = () => {
+    Keyboard.dismiss()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <TouchableWithoutFeedback onPress={() => hideKeyboard()}>
+        <View style={styles.app}>
+          <StatusBar style="auto" />
+
+            <View style={styles.content}>
+
+                <FormWeather />
+
+            </View>
+
+        </View>
+      </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+  app:{
+    flex:1,
+    backgroundColor:'rgb(71,149,212)',
+    justifyContent:'center'
+  },
+  content:{
+    marginHorizontal:'4%'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
