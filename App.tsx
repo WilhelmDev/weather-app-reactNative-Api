@@ -15,7 +15,7 @@ export default function App() {
     useEffect(() => {
         const reqWeather = async () =>{
             if (reqApi) {
-                const apiKey = 'a37a5ed701efa068745a9223d005c03b'
+                const apiKey = 'your Apikey Here'
                 const {city,country} = search
                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}`
                 
