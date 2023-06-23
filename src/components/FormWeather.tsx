@@ -50,9 +50,9 @@ export default function FormWeather({search, handleSearch, setSearch}:FromProps)
                     />
                 </View>
 
-                <View>
+                <View >
 
-                    <Picker style={{backgroundColor:'#fff'} }
+                    <Picker style={{backgroundColor:'#fff', } }
                     selectedValue={country}
                     onValueChange={(country) => setSearch({...search, country})}
                     >
@@ -102,14 +102,16 @@ const styles= StyleSheet.create({
         backgroundColor:'#fff',
         fontSize:20,
         marginBottom:20,
-        textAlign:'center'
+        textAlign:'center',
+        borderRadius:10
     },
     btn:{
-        marginTop:50,
+        marginTop:40,
         backgroundColor:'#000',
         paddingHorizontal:10,
-        paddingVertical:12,
-        justifyContent:'center'
+        paddingVertical:14,
+        justifyContent:'center',
+        borderRadius:10
     },
     btnText:{
         color:'white',
